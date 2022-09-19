@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: var(--main-min-height)
+}
+
+.bg-img {
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  opacity: .25;
+}
+
+.display-nav {
+  position: relative;
+  z-index: 1;
+  padding: var(--offset);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media only screen and (min-width: 780px) {
+  .bg-img {
+    width: 50%;
+    opacity: 1
+  }
+
+  .display-nav {
+    width: 50%;
+    margin-left: auto
+  }
+}
