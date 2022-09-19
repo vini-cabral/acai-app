@@ -10,21 +10,6 @@ function generateParams(sizes: IItem[], plusItems: IItem[]): string {
   let path = ''
   sizes.forEach(el => {
     if(el.checked) {
-      path += `/${el.id}`
-    }
-  })
-  plusItems.forEach(el => {
-    if(el.checked) {
-      path += `/${el.id}`
-    }
-  })
-  return path
-}
-
-function generateParams1(sizes: IItem[], plusItems: IItem[]): string {
-  let path = ''
-  sizes.forEach(el => {
-    if(el.checked) {
       path += `+${el.id}`
     }
   })
@@ -34,6 +19,16 @@ function generateParams1(sizes: IItem[], plusItems: IItem[]): string {
     }
   })
   return path.substring(1)
+}
+
+function renderHelp(value: number, max: number, className: any) {
+  if(value == 1) {
+    return <h3 className={ className }>{ value } item escolhido.</h3>
+  } else if (value > 1) {
+    return <h3 className={ className }>{ value } itens escolhidos.</h3>
+  } else {
+    return <h3 className={ className }>Escolha até { max } itens.</h3>
+  }
 }
 
 let render: JSX.Element |  JSX.Element[]
@@ -73,9 +68,10 @@ function Home() {
   if(!error && sizes && plus) {
     render = <>
       <h1 className='title'>Calcule seu Açaí</h1>
-      <h2>Porção</h2>
-        <div>{
-          sizes.map((el1, i1) => <label key={ el1.id }>
+      <h2 className='sub-title'>Porção</h2>
+      <h3 className='sub-title-help'>Escolha uma das opções abaixo:</h3>
+        <div className='list-menu'>{
+          sizes.map((el1, i1) => <label key={ el1.id } className='item-menu'>
             <input
               type="radio"
               id={ el1.id }
@@ -87,12 +83,15 @@ function Home() {
                   return i1 === i2 ? { ...el2, checked: true} : { ...el2, checked: false}
                 }))
               } }
-            />{ el1.desc }
+            />
+            <span>{ el1.desc }</span>
+            <span>{ `R$ ${el1.price.toFixed(2).replace(".",",")}` }</span>
           </label>)
         }</div>
-      <h2>Acréscimos</h2>
-      <div>{
-        plus.items.map(el => <label key={ el.id }>
+      <h2 className='sub-title'>Acréscimos</h2>
+      { renderHelp(totalSelect, plus.max, 'sub-title-help') }
+      <div className='list-menu'>{
+        plus.items.map(el => <label key={ el.id } className='item-menu'>
             <input
               type="checkbox"
               id={ el.id }
@@ -104,12 +103,14 @@ function Home() {
                 el.checked = !el.checked
                 setPlus({...plus})
               } }
-            />{ el.desc }
+            />
+            <span>{ el.desc }</span>
+            <span>{ `R$ ${el.price.toFixed(2).replace(".",",")}` }</span>
           </label>
         )
       }</div>
-      <Link href={`/list/${ generateParams1(sizes, plus.items) }`}>
-        <button>Calcular</button>
+      <Link href={`/list/${ generateParams(sizes, plus.items) }`}>
+        <button className='btn-calc'>Calcular</button>
       </Link>
     </>
   }

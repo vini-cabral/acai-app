@@ -75,8 +75,72 @@ body {
   color: var(--color-02);
 }
 
-.title {
+.title, .sub-title {
   font-family: 'Lobster', cursive;
   font-size: 4rem;
+  line-height: 5rem;
   align-self: center;
+}
+
+.sub-title {
+  line-height: 4rem;
+  font-size: 3.5rem;
+  align-self: flex-start;
+}
+
+.btn-calc {
+  margin: var(--offset) 0;
+  font-size: 1.8rem;
+  padding: calc(0.5*var(--offset)) var(--offset);
+  cursor: pointer;
+  background-color: var(--color-02);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.sub-title-help {
+  line-height: 2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-style: italic;
+  color: var(--color-03);
+}
+
+.list-menu {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item-menu {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-05);
+  border-bottom: 2px solid var(--color-02);
+  cursor: pointer;
+}
+
+.item-menu > span, .item-menu > input {
+  font-size: 2rem;
+  line-height: 3rem;
+  vertical-align: baseline;
+}
+
+.item-menu > :nth-child(3) {
+  margin-left: auto
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 4rem;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--color-05);
+}
+
+.btn-calc:hover {
+  opacity: 0.8;
 }

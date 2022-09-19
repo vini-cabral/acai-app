@@ -83,13 +83,29 @@ function List() {
   if(!error && sizes && plus) {
     render = <>
       <h1 className='title'>Calcule seu Açaí</h1>
-      <h2>Pedido</h2>
-      <ul>
-        { sizes.filter(el => el.checked).map(el => <li key={ el.id }><span>{ el.desc }</span><span>{ el.price }</span></li>) }
-        { plus.items.filter(el => el.checked).map(el => <li key={ el.id } ><span>{ el.desc }</span><span>{ el.price }</span></li>) }
+      <h2 className='sub-title'>Pedido</h2>
+      <ul className='list-menu'>
+        { 
+          sizes.filter(el => el.checked).map(el => <li key={ el.id } className='item-menu'>
+            <span>{ el.desc }</span>
+            <span style={ {marginLeft: "auto"}}>{ `R$ ${el.price.toFixed(2).replace(".",",")}` }</span>
+          </li>)
+        }
+        {
+          plus.items.filter(el => el.checked).map(el => <li key={ el.id } className='item-menu'>
+            <span>{ el.desc }</span>
+            <span style={ {marginLeft: "auto"}}>{ `R$ ${el.price.toFixed(2).replace(".",",")}` }</span>
+          </li>)
+        }
+        <li className='total'>
+            <span>Total</span>
+            <span >{ `R$ ${
+              sizes.filter(el => el.checked)
+            }` }</span>
+        </li>
       </ul>
       <Link href="/">
-        <button>Cardápio</button>
+        <button className='btn-calc'>Cardápio</button>
       </Link>
     </>
   }
