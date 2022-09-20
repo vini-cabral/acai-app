@@ -7,19 +7,19 @@ export default function Footer() {
     <p>
       Veja o autor do{" "}
       <Link href="https://github.com/vini-cabral/acai-app">
-        <a target="_blank">projeto</a>
+        <a>projeto</a>
       </Link>,{" "}
       <Link href="https://github.com/vini-cabral">
-        <a target="_blank"><cite>Vinícius Cabral</cite></a>
+        <a><cite>Vinícius Cabral</cite></a>
       </Link>.
     </p>
     <p>
       Conheça também a autora da{" "}
       <Link href="https://unsplash.com/photos/oo1COphDN8w">
-        <a target="_blank">imagem</a>
+        <a>imagem</a>
       </Link>,{" "}
       <Link href="https://unsplash.com/@ahungryblonde_">
-        <a target="_blank"><cite>Sara Dubler</cite></a>
+        <a><cite>Sara Dubler</cite></a>
       </Link>.
     </p>
   </footer>
