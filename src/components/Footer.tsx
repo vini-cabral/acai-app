@@ -1,17 +1,26 @@
+import Link from 'next/link'
+// My Project
 import styles from './Footer.module.css'
 
 export default function Footer() {
   return <footer className={ styles['footer'] }>
     <p>
       Veja o autor do{" "}
-      <a target="_blank" href="https://github.com/vini-cabral/acai-app">projeto</a>,{" "}
-      <a target="_blank" href="https://github.com/vini-cabral"><cite>Vinícius Cabral</cite></a>.
+      <Link href="https://github.com/vini-cabral/acai-app">
+        <a target="_blank">projeto</a>
+      </Link>,{" "}
+      <Link href="https://github.com/vini-cabral">
+        <a target="_blank"><cite>Vinícius Cabral</cite></a>
+      </Link>.
     </p>
     <p>
       Conheça também a autora da{" "}
-      <a target="_blank" href="https://unsplash.com/photos/oo1COphDN8w">imagem</a>,{" "}
-      <a target="_blank" href="https://unsplash.com/@ahungryblonde_"><cite>Sara Dubler</cite></a>.
+      <Link href="https://unsplash.com/photos/oo1COphDN8w">
+        <a target="_blank">imagem</a>
+      </Link>,{" "}
+      <Link href="https://unsplash.com/@ahungryblonde_">
+        <a target="_blank"><cite>Sara Dubler</cite></a>
+      </Link>.
     </p>
   </footer>
 }
-
