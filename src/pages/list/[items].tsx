@@ -9,6 +9,12 @@ import { apiClientGetData } from '../../client/services/apiService'
 import Loading from '../../components/Loading'
 import Error from '../../components/Error'
 
+type ListOrder = {
+  id: string
+  desc: string
+  price: number
+}
+
 let dataCache: IData
 let render: JSX.Element |  JSX.Element[]
 let listSizes: string[]
@@ -33,6 +39,7 @@ function List() {
   const [error, setError] = useState<Error>()
   const [sizes, setSizes] = useState<IItem[]>()
   const [plus, setPlus] = useState<IItemMax>()
+  const [listOrder, setListOrder] = useState<ListOrder[]>()
   const [triggerCache, setTriggerCache] = useState<boolean>()
   useEffect(() => {
     if(!sessionStorage.getItem("DataString")) {
@@ -40,6 +47,10 @@ function List() {
       .then(res => {
         setSizes(res.sizes)
         setPlus(res.plus)
+        setListOrder([
+          ...res.sizes.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price }),
+          ...res.plus.items.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price })
+        ])
         sessionStorage.setItem("DataString", JSON.stringify(res))
         setTriggerCache(true)
       })
@@ -68,6 +79,10 @@ function List() {
       }
       setSizes(dataCache.sizes)
       setPlus(dataCache.plus)
+      setListOrder([
+        ...dataCache.sizes.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price }),
+        ...dataCache.plus.items.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price })
+      ])
       // Refresh cache
       sessionStorage.setItem("DataString", JSON.stringify(dataCache))
       setTriggerCache(false)
@@ -84,28 +99,25 @@ function List() {
     </Error>
   }
 
-  if(!error && sizes && plus) {
+  if(!error && listOrder) {
     render = <>
       <h1 className='title'>Calcule seu Açaí</h1>
       <h2 className='sub-title'>Pedido</h2>
       <ul className='list-menu'>
         { 
-          sizes.filter(el => el.checked).map(el => <li key={ el.id } className='item-menu'>
-            <span>{ el.desc }</span>
-            <span style={ {marginLeft: "auto"}}>{ `R$ ${el.price.toFixed(2).replace(".",",")}` }</span>
-          </li>)
-        }
-        {
-          plus.items.filter(el => el.checked).map(el => <li key={ el.id } className='item-menu'>
+          listOrder.map(el => <li key={ el.id } className='item-menu'>
             <span>{ el.desc }</span>
             <span style={ {marginLeft: "auto"}}>{ `R$ ${el.price.toFixed(2).replace(".",",")}` }</span>
           </li>)
         }
         <li className='total'>
             <span>Total</span>
-            <span >{ `R$ ${
-              sizes.filter(el => el.checked)
-            }` }</span>
+            <span >{
+              `R$ ${ listOrder
+                .map(el => el.price)
+                .reduce((a:number,b:number) => a + b).toFixed(2).replace(".",",")}` 
+              }
+            </span>
         </li>
       </ul>
       <Link href="/">
