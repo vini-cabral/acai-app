@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 // My Project
-import DisplayPart from '../../partials/DisplayPart'
+import Display from '../../components/Display'
 import { IData, IItem, IItemMax } from '../../types'
 import { apiClientGetData } from '../../client/services/apiService'
-import { Route } from 'next/dist/server/router'
+import Loading from '../../components/Loading'
+import Error from '../../components/Error'
 
 let dataCache: IData
 let render: JSX.Element |  JSX.Element[]
@@ -74,10 +75,13 @@ function List() {
   }, [router, triggerCache])
 
   // Handling prints
-  render = <h3>Carregando...</h3>
+  render = <Loading />
 
   if(error) {
-    render = <h3>Erro ao tentar carregar dados</h3>
+    render = <Error>
+      <h3>Ops, algo deu errado!</h3>
+      <p>Não foi possível fazer o carregamento de dados.</p>
+    </Error>
   }
 
   if(!error && sizes && plus) {
@@ -114,9 +118,9 @@ function List() {
     <Head>
       <title>Açaí App - Pedido</title>
     </Head>
-    <DisplayPart>
+    <Display>
       { render }
-    </DisplayPart>
+    </Display>
   </>
 }
 

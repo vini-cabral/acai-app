@@ -60,8 +60,9 @@ html {
   --color-03: #b175ee;
   --color-04: #1DF565;
   --color-05: #2dc760;
-  --color-error-01: #83243b;
-  --color-error-02: #fc5e85;
+  --color-06: #0b491f;
+  --color-error-01: #4e1221;
+  --color-error-02: #e6708d;
   --footer-height: 8rem;
   --main-min-height: calc(100vh - var(--footer-height));
   --container-width: 1360px;
@@ -83,6 +84,7 @@ body {
 }
 
 .sub-title {
+  margin-top: var(--offset);
   line-height: 4rem;
   font-size: 3.5rem;
   align-self: flex-start;

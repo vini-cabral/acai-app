@@ -1,6 +1,6 @@
 import Head from 'next/head'
 // My Project
-import FooterPart from '../partials/FooterPart'
+import Footer from '../components/Footer'
 import styles from './CalcLayout.module.css'
 
 type Props = {
@@ -20,6 +20,6 @@ export default function CalcLayout({ children }: Props) {
         { children }
       </div>
     </main>
-    <FooterPart />
+    <Footer />
   </>
 }

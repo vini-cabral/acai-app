@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 // My Project
-import DisplayPart from '../partials/DisplayPart'
+import Display from '../components/Display'
 import { IItem, IItemMax } from '../types'
 import { apiClientGetData } from '../client/services/apiService'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
 
 function generateParams(sizes: IItem[], plusItems: IItem[]): string {
   let path = ''
@@ -59,10 +61,13 @@ function Home() {
     }
   }, [plus])
 
-  render = <h3>Carregando...</h3>
+  render = <Loading />
 
   if(error) {
-    render = <h3>Erro ao tentar carregar dados</h3>
+    render = <Error>
+      <h3>Ops, algo deu errado!</h3>
+      <p>Não foi possível fazer o carregamento de dados.</p>
+    </Error>
   }
 
   if(!error && sizes && plus) {
@@ -119,9 +124,9 @@ function Home() {
     <Head>
       <title>Açaí App - Cardápio</title>
     </Head>
-    <DisplayPart>
+    <Display>
       { render }
-    </DisplayPart>
+    </Display>
   </>
 }
 
