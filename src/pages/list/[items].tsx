@@ -19,43 +19,29 @@ let dataCache: IData
 let render: JSX.Element |  JSX.Element[]
 let listSizes: string[]
 let listPlus: string[]
+
 function List() {
-  // Handling URL params
   const router = useRouter()
   listSizes = []
   listPlus = []
-  if(router.query.items && typeof router.query.items == "string") {
-    for(let param of router.query.items.split("+")) {
-      if(param.match('size')) {
-        listSizes.push(param)
-      }
-      if(param.match('plus')) {
-        listPlus.push(param)
+  const [error, setError] = useState<Error>()
+  const [listOrder, setListOrder] = useState<ListOrder[]>()
+  const [checkCache, setCheckCache] = useState<boolean>()
+
+  useEffect(() => {
+    // Handling URL params
+    if(router.query.items && typeof router.query.items == "string") {
+      for(let param of router.query.items.split("+")) {
+        if(param.match('size')) {
+          listSizes.push(param)
+        }
+        if(param.match('plus')) {
+          listPlus.push(param)
+        }
       }
     }
-  }
-
-  // Handling datas
-  const [error, setError] = useState<Error>()
-  const [sizes, setSizes] = useState<IItem[]>()
-  const [plus, setPlus] = useState<IItemMax>()
-  const [listOrder, setListOrder] = useState<ListOrder[]>()
-  const [triggerCache, setTriggerCache] = useState<boolean>()
-  useEffect(() => {
-    if(!sessionStorage.getItem("DataString")) {
-      apiClientGetData()
-      .then(res => {
-        setSizes(res.sizes)
-        setPlus(res.plus)
-        setListOrder([
-          ...res.sizes.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price }),
-          ...res.plus.items.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price })
-        ])
-        sessionStorage.setItem("DataString", JSON.stringify(res))
-        setTriggerCache(true)
-      })
-      .catch(e => setError(e))
-    } else {
+    // Handling Datas
+    if(sessionStorage.getItem("DataString")) {
       dataCache = JSON.parse(sessionStorage.getItem("DataString")!)
       // Handling sizes list
       if(listSizes.length) {
@@ -77,19 +63,26 @@ function List() {
           })
         }
       }
-      setSizes(dataCache.sizes)
-      setPlus(dataCache.plus)
       setListOrder([
         ...dataCache.sizes.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price }),
         ...dataCache.plus.items.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price })
       ])
-      // Refresh cache
       sessionStorage.setItem("DataString", JSON.stringify(dataCache))
-      setTriggerCache(false)
+      setCheckCache(false)
+    } else {
+      apiClientGetData()
+      .then(res => {
+        setListOrder([
+          ...res.sizes.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price }),
+          ...res.plus.items.filter(el => el.checked && { id: el.id ,desc: el.desc, price: el.price })
+        ])
+        sessionStorage.setItem("DataString", JSON.stringify(res))
+        setCheckCache(true)
+      })
+      .catch(e => setError(e))
     }
-  }, [router, triggerCache])
+  }, [router, checkCache])
 
-  // Handling prints
   render = <Loading />
 
   if(error) {
