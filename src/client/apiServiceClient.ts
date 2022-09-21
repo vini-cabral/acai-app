@@ -1,5 +1,4 @@
-import { IData } from "../../types"
-import { API_CLIENT } from "../env"
+import { IData } from "../types"
 
 function handleResponseParse(res: Response) {
   if(res.ok) {
@@ -10,7 +9,7 @@ function handleResponseParse(res: Response) {
 }
 
 async function apiClientGetData(): Promise<IData> {
-  const res = await fetch(`${API_CLIENT.baseURL}/menuChoices`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menuChoices`)
   return handleResponseParse(res)
 }
 

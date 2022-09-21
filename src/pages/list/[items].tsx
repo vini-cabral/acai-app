@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 // My Project
 import Display from '../../components/Display'
 import { IData } from '../../types'
-import { apiClientGetData } from '../../client/services/apiService'
+import { apiClientGetData } from '../../client/apiServiceClient'
 import Loading from '../../components/Loading'
 import Error from '../../components/Error'
 
