@@ -1,3 +1,10 @@
+# Açaí App
+Para executá-lo localmente ou em outro servidor, use a propriedade __baseURL__ para definir a _url de desenvolvimento_ ou a _url de produção_. A __baseURL__ é uma propriedade do objeto __API_CLIENT__, que está definido no seguinte path: `src/client/env/index.ts`
+
+To run it locally or on another server, use the __baseURL__ property to set the _development url_ or the _production url_.  The __baseURL__ is a property of the __API_CLIENT__ object, which is defined in the following path: `src/client/env/index.ts`
+
+# NextJS
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 // My Project
 import Display from '../../components/Display'
-import { IData, IItem, IItemMax } from '../../types'
+import { IData } from '../../types'
 import { apiClientGetData } from '../../client/services/apiService'
 import Loading from '../../components/Loading'
 import Error from '../../components/Error'
@@ -87,8 +87,8 @@ function List() {
 
   if(error) {
     render = <Error>
-      <h3>Ops, algo deu errado!</h3>
-      <p>Não foi possível fazer o carregamento de dados.</p>
+      <h3>{ error.name }</h3>
+      <p>{ error.message }</p>
     </Error>
   }
 

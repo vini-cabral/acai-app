@@ -65,8 +65,8 @@ function Home() {
 
   if(error) {
     render = <Error>
-      <h3>Ops, algo deu errado!</h3>
-      <p>Não foi possível fazer o carregamento de dados.</p>
+      <h3>{ error.name }</h3>
+      <p>{ error.message }</p>
     </Error>
   }
 
