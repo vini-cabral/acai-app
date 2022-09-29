@@ -3,7 +3,7 @@
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: var(--gutter);
+  padding: 0 var(--gutter);
   min-height: var(--footer-height);
   background-color: var(--color-03);
   color: var(--color-01);
