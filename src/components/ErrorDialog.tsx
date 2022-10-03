@@ -1,4 +1,4 @@
-import styles from "./Error.module.css"
+import styles from "./ErrorDialog.module.css"
 
 type Props = {
   children: JSX.Element | JSX.Element[]

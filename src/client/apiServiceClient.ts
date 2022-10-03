@@ -1,6 +1,6 @@
 import { IData } from "../types"
 
-function handleResponseParse(res: Response) {
+function handlerResponseParse(res: Response) {
   if(res.ok) {
     return res.json()
   } else {
@@ -10,7 +10,7 @@ function handleResponseParse(res: Response) {
 
 async function apiClientGetData(): Promise<IData> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menuChoices`)
-  return handleResponseParse(res)
+  return handlerResponseParse(res)
 }
 
 export { apiClientGetData }
